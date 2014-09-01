@@ -1,68 +1,61 @@
-vim Cookbook
-============
-TODO: Enter the cookbook description here.
+Description
+===========
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Installs or compiles/installs vim.
 
 Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+============
 
-e.g.
-#### packages
-- `toaster` - vim needs toaster to brown your bagel.
+## Platform:
+
+* Ubuntu/Debian
+* Red Hat/CentOS/Fedora/Scientific
+* ArchLinux
 
 Attributes
-----------
-TODO: List your cookbook attributes here.
+==========
 
-e.g.
-#### vim::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['vim']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+## Default recipe attributes:
+
+* `node['vim']['extra_packages']` - An array of extra packages related to vim to install (like plugins). Empty array by default.
+
+* `node['vim']['install_method']` - Sets the install method, choose from the various install recipes. This attribute is set to 'package' by default.
+
+
+## Source recipe attributes:
+
+* `node['vim']['source']['version']` -  The version of vim to compile, 7.4 by default.
+* `node['vim']['source']['checksum']` -  The source file checksum.
+* `node['vim']['source']['dependencies']` - These are the non rhl specific devel dependencies for compiling vim.
+* `node['vim']['source']['centos_dependencies']` - These are the rhl and centos specific dependencies needed for compiling vim. 
+* `node['vim']['source']['prefix']` - This is the path the vim bin will be placed, it's `/usr/local` 
+* `node['vim']['source']['configuration']` - If you prefer to compile vim differently than the default you can override this configuration.
 
 Usage
------
-#### vim::default
-TODO: Write usage instructions for each cookbook.
+=====
 
-e.g.
-Just include `vim` in your node's `run_list`:
+Put `recipe[vim]` in a run list, or `include_recipe 'vim'` to ensure that vim is installed on your systems.
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[vim]"
-  ]
-}
-```
+If you would like to install additional vim plugin packages, include their package names in the `node['vim']['extra_packages']` attribute. Verify that your operating sytem has the package available.
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+If you would rather compile vim from source, as the case may be for centos nodes, then override the `node['vim']['install_method']` with a value of `'source'`.
+  
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+  
+License and Author
+==================
 
-License and Authors
--------------------
-Authors: TODO: List authors
+Author:: Joshua Timberman <joshua@opscode.com>
+
+Copyright 2010, Opscode, Inc
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: vim
-# Recipe:: default
+# Attributes:: default
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -17,13 +17,6 @@
 # limitations under the License.
 #
 
-begin
-  include_recipe "vim::#{node['vim']['install_method']}"
-rescue Chef::Exceptions::RecipeNotFound
-  Chef::Log.warn "A build-essential recipe does not exist for the platform_family: #{node['platform_family']}"
-end
-
-if node['vim']['use_custom_settings']
-  include_recipe 'vim::settings'
-end
+default['vim']['extra_packages'] = []
+default['vim']['install_method'] = 'package'
 
