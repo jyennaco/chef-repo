@@ -11,11 +11,11 @@ Vagrant.configure("2") do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "opscode-ubuntu-12.04-i386"
+  config.vm.box = "ubuntu/trusty64"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_provisionerless.box"
+  #config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04-i386_provisionerless.box"
 
   # This can be set to the host name you wish the guest machine to have. Vagrant
   # will automatically execute the configuration necessary to make this happen.
@@ -62,18 +62,18 @@ Vagrant.configure("2") do |config|
   # some recipes and/or roles.
   #
 
-  config.vm.provision "shell", path: "init.sh"
+  #config.vm.provision "shell", path: "init.sh"
 
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "~/chef-repo/cookbooks"
-    chef.roles_path = "~/chef-repo/roles"
-    chef.data_bags_path = "~/chef-repo/data_bags"
-    chef.add_recipe "vim"
+  #config.vm.provision :chef_solo do |chef|
+  #  chef.cookbooks_path = "~/chef-repo/cookbooks"
+  #  chef.roles_path = "~/chef-repo/roles"
+  #  chef.data_bags_path = "~/chef-repo/data_bags"
+  #  chef.add_recipe "vim"
   #   chef.add_role "web"
   #
   #   # You may also specify custom JSON attributes:
   #   chef.json = { :mysql_password => "foo" }
-  end
+  #end
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
