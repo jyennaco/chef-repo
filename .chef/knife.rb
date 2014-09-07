@@ -11,3 +11,6 @@ chef_server_url          "https://api.opscode.com/organizations/ahmyoga"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
+cookbook_copyright       "Joe Yennaco"
+cookbook_email           "joe@joeyennaco.com"
+cookbook_license         "apachev2"
