@@ -21,7 +21,7 @@ knife bootstrap \
     -i ~/.vagrant.d/insecure_private_key \
     -x vagrant \
     -p ${PORT} \
-    -N ${NODE_NAME}
+    -N ${NODE_NAME} \
     localhost \
     --sudo
 
