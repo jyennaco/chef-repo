@@ -6,7 +6,7 @@
 PORT=2222
 
 # Name of the Node to create on the Chef Server
-NODE_NAME=ahmy-wordpress
+NODE_NAME=vagrant-centos
 
 ####################################################
 
