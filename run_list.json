@@ -1,4 +1,5 @@
 {
   "run_list": [ "recipe[vim]",
-		"recipe[java]" ]
+		"recipe[java]",
+                "recipe[java::set_java_home]" ]
 }
