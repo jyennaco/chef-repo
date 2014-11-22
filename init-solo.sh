@@ -47,7 +47,7 @@ echo 'cookbook_path root + "/cookbooks"' >> ${SOLO}
 
 echo "Running chef-solo to configure this node ..."
 RUN_LIST=~/chef-repo/${RUN_LIST_JSON}
-chef-solo -c ${SOLO} -j ${RUN_LIST}
+sudo chef-solo -c ${SOLO} -j ${RUN_LIST}
 
-echo "init.sh complete!"
+echo "init-solo.sh complete!"
 
