@@ -1,0 +1,7 @@
+{
+    "id": "jfy",
+    "ssh_keys": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCY/55eCrNREnyavBPHE+sud/3WUt8ZjxOpiEtBMsh8Xf8zj+uq3Ku/3DCh8FphnR1NeLDN6bZedG2rOLIey8pG/w9ADp0IY3wTv3z1miXXRqVyjIoN9UrozO0Fve5X95sTx48pSWvXMkUWbYd+uX8reRZP932PZfgmalMfGvfP+gXoqy5pERZY2dZky7VQMr+p4AgO51+1puHjP4ALknAZOkSCSHLNP1CN212ri8Hy0A8KbOahA6Rb8loYtxICwPVZu+DoH1VAqriNdVxEpBsX5dpYNB+MJqjVtNFv31FiMpQNAmuCkloBjsiBzcN/+0f1cYIWK6IpkYD6Tno2PVKD joe@joeyennaco.com",
+    "groups": [ "sysadmin", "dba", "devops" ],
+    "uid": 2001,
+    "shell": "/bin/bash"
+}
