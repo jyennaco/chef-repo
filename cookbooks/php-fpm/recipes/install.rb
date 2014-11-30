@@ -19,7 +19,6 @@
 #
 
 include_recipe 'php-fpm::repository' unless node['php-fpm']['skip_repository_install']
-include_recipe 'apt::default' if node['platform_family'] == 'debian'
 
 if node['php-fpm']['package_name'].nil?
   if platform_family?("rhel")
@@ -45,8 +44,6 @@ service_provider = nil
 if node['platform'] == 'ubuntu' and node['platform_version'].to_f >= 13.10
   service_provider = ::Chef::Provider::Service::Upstart
 end
-
-directory node['php-fpm']['log_dir']
 
 service "php-fpm" do
   provider service_provider if service_provider
