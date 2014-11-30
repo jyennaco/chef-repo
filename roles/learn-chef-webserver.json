@@ -1,0 +1,15 @@
+name "learn-chef-webserver"
+description "Web Server"
+run_list "role[base]", "recipe[learn_chef_apache2]"
+default_attributes({
+  "apache" => {
+    "sites" => {
+      "admin" => {
+        "port" => 8000
+      },
+      "bears" => {
+        "port" => 8081
+      }
+    }
+  }
+})
