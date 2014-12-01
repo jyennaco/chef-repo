@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: mpm_itk
+# Attributes:: mod_php5
 #
-# Copyright 2013, OneHealth Solutions, Inc.
+# Copyright 2014, Viverae, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,12 +15,5 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-apache_module('mpm_event') { enable false }
-apache_module('mpm_prefork') { enable false }
-apache_module('mpm_worker') { enable false }
-
-apache_module 'mpm_itk' do
-  conf true
-end
+default['apache']['mod_php5']['install_method'] = 'package'
