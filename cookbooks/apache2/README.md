@@ -1,7 +1,7 @@
 apache2 Cookbook
 ================
-[![Build Status](https://secure.travis-ci.org/viverae-cookbooks/apache2.png?branch=master)](http://travis-ci.org/viverae-cookbooks/apache2)
-[![Gitter Chat](https://badges.gitter.im/viverae-cookbooks/apache2.png)](https://gitter.im/viverae-cookbooks/apache2)
+[![Build Status](https://travis-ci.org/svanzoest/apache2-cookbook.svg?branch=master)](https://travis-ci.org/svanzoest/apache2-cookbook)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/svanzoest/apache2-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 This cookbook provides a complete Debian/Ubuntu style Apache HTTPD
 configuration. Non-Debian based distributions such as Red Hat/CentOS,
@@ -35,7 +35,7 @@ As of v1.2.0, this cookbook makes use of `node['platform_family']` to
 simplify platform selection logic. This attribute was introduced in
 Ohai v0.6.12. The recipe methods were introduced in Chef v0.10.10. If
 you must run an older version of Chef or Ohai, use [version 1.1.16 of
-this cookbook](https://supermarket.getchef.com/cookbooks/apache2/versions/1.1.16).
+this cookbook](https://supermarket.chef.io/cookbooks/apache2/versions/1.1.16).
 
 ## Cookbooks:
 
@@ -56,7 +56,7 @@ settings may affect the behavior of this cookbook:
 On Ubuntu/Debian, use Opscode's `apt` cookbook to ensure the package
 cache is updated so Chef can install packages, or consider putting
 apt-get in your bootstrap process or
-[knife bootstrap template](http://wiki.opscode.com/display/chef/Knife+Bootstrap).
+[knife bootstrap template](http://docs.chef.io/knife_bootstrap.html)
 
 On RHEL, SELinux is enabled by default. The `selinux` cookbook
 contains a `permissive` recipe that can be used to set SELinux to
@@ -127,7 +127,7 @@ Tests
 =====
 
 This cookbook in the
-[source repository](https://github.com/viverae-cookbooks/apache2)
+[source repository](https://github.com/svanzoest/apache2-cookbook/)
 contains chefspec, serverspec and cucumber tests. This is an initial proof of
 concept that will be fleshed out with more supporting infrastructure
 at a future time.
@@ -175,7 +175,7 @@ General settings
 These are general settings used in recipes and templates. Default
 values are noted.
 
-* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2.
+* `node['apache']['version']` - Specifing 2.4 triggers apache 2.4 support. If the platform is known during our test to install 2.4 by default, it will be set to 2.4 for you. Otherwise it falls back to 2.2. This value should be specified as a string.
 * `node['apache']['listen_addresses']` - Addresses that httpd should listen on. Default is any ("*").
 * `node['apache']['listen_ports']` - Ports that httpd should listen on. Default is port 80.
 * `node['apache']['contact']` - Value for ServerAdmin directive. Default "ops@example.com".
@@ -252,7 +252,7 @@ For general information on this attributes see http://httpd.apache.org/docs/curr
 * `node['apache']['mod_ssl']['cipher_suite']` - sets the SSLCiphersuite value to the specified string. The default is
   considered "sane" but you may need to change it for your local security policy, e.g. if you have PCI-DSS requirements. Additional
   commentary on the
-  [original pull request](https://github.com/viverae-cookbooks/apache2/pull/15#commitcomment-1605406).
+  [original pull request](https://github.com/svanzoest/apache2-cookbook/pull/15#commitcomment-1605406).
 * `node['apache']['mod_ssl']['honor_cipher_order']` - Option to prefer the server's cipher preference order. Default 'On'.
 * `node['apache']['mod_ssl']['insecure_renegotiation']` - Option to enable support for insecure renegotiation. Default 'Off'.
 * `node['apache']['mod_ssl']['strict_sni_vhost_check']` - Whether to allow non-SNI clients to access a name-based virtual host. Default 'Off'.
@@ -671,7 +671,7 @@ The parameters specified will be used as:
 In the template. When you write your own, the `@` is significant.
 
 For more information about Definitions and parameters, see the
-[Chef Wiki](http://wiki.opscode.com/display/chef/Definitions)
+[Chef Wiki](http://docs.chef.io/definitions.html)
 
 Usage
 =====
@@ -717,7 +717,7 @@ License and Authors
 * Author:: Sean OMeara <someara@opscode.com>
 * Author:: Seth Chisamore <schisamo@opscode.com>
 * Author:: Gilles Devaux <gilles@peerpong.com>
-* Author:: Sander van Zoest <sander.vanzoest@viverae.com>
+* Author:: Sander van Zoest <sander+cookbooks@vanzoest.com>
 * Author:: Taylor Price <tayworm@gmail.com>
 
 * Copyright:: 2009-2012, Opscode, Inc
@@ -725,6 +725,7 @@ License and Authors
 * Copyright:: 2011, CustomInk, LLC.
 * Copyright:: 2013-2014, OneHealth Solutions, Inc.
 * Copyright:: 2014, Viverae, Inc.
+* Copyright:: 2015, Alexander van Zoest
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
