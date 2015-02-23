@@ -2,11 +2,22 @@ apache2 Cookbook Changelog
 ==========================
 This file is used to list changes made in each version of the apache2 cookbook.
 
+v3.0.1 (2015-02-11)
+-------------------
+
+- [GH-310] Ubuntu Apache 2.2 requires the lock_dir to be owned by www-data
+- [GH-307] Clarify that apache.version is a string
+- [GH-305] Restart service after MPM changes
+- [GH-304] Don't install systemd module on Amazon Linux
+- [GH-298] Add non-threaded MPM break notice for PHP users
+- [GH-296] Create lock_dir automatically
+
 v3.0.0 (2014-11-30)
 -------------------
 Major version update because of SSL Improvements and new platform MPM and Version defaults.
 
 - [GH-286] Refactor MPM and Apache version defaults: default is now apache 2.4
+- Note: set `apache.mpm` to `prefork` if you are using `mod_php` in Ubuntu >=14.04
 - [GH-281] mod_ssl: Disable SSLv3 by default to protect against POODLE attack (CVE-2014-3566)
 - [GH-280] mod_ssl: Major update with modern Cipher Suite, and best practices.
   Updated to a more modern default `apache.mod_ssl.cipher_suite`.

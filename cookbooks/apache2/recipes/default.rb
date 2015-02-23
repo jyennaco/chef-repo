@@ -53,7 +53,6 @@ end
 package node['apache']['perl_pkg']
 
 %w(a2ensite a2dissite a2enmod a2dismod a2enconf a2disconf).each do |modscript|
-
   link "/usr/sbin/#{modscript}" do
     action :delete
     only_if { ::File.symlink?("/usr/sbin/#{modscript}") }
@@ -124,6 +123,16 @@ end
   end
 end
 
+directory node['apache']['lock_dir'] do
+  mode '0755'
+  if node['platform_family'] == 'debian' && node['apache']['version'] == '2.2'
+    owner node['apache']['user']
+  else
+    owner 'root'
+  end
+  group node['apache']['root_group']
+end
+
 # Set the preferred execution binary - prefork or worker
 template "/etc/sysconfig/#{node['apache']['package']}" do
   source 'etc-sysconfig-httpd.erb'
@@ -191,7 +200,7 @@ apache_site node['apache']['default_site_name'] do
 end
 
 service 'apache2' do
-  service_name node['apache']['package']
+  service_name node['apache']['service_name']
   case node['platform_family']
   when 'rhel'
     reload_command '/sbin/service httpd graceful'
