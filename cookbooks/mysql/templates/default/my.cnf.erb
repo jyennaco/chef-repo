@@ -26,11 +26,14 @@ pid-file                       = <%= @pid_file %>
 <% if @socket_file %>
 socket                         = <%= @socket_file %>
 <% end %>
+<% if @config.bind_address %>
+bind-address                   = <%= @config.bind_address %>
+<% end %>
 <% if @config.port %>
 port                           = <%= @config.port %>
 <% end %>
-<% if @config.parsed_data_dir %>
-datadir                        = <%= @config.parsed_data_dir %>
+<% if @data_dir %>
+datadir                        = <%= @data_dir %>
 <% end %>
 <% if @tmp_dir %>
 tmpdir                         = <%= @tmp_dir %>

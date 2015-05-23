@@ -3,6 +3,8 @@ class Chef
     class MysqlService
       class Systemd < Chef::Provider::MysqlService
         action :start do
+          # this script is called by the main systemd unit file, and
+          # spins around until the service is actually up and running.
           template "#{new_resource.name} :start /usr/libexec/#{mysql_name}-wait-ready" do
             path "/usr/libexec/#{mysql_name}-wait-ready"
             source 'systemd/mysqld-wait-ready.erb'
@@ -14,6 +16,7 @@ class Chef
             action :create
           end
 
+          # this is the main systemd unit file
           template "#{new_resource.name} :start /usr/lib/systemd/system/#{mysql_name}.service" do
             path "/usr/lib/systemd/system/#{mysql_name}.service"
             source 'systemd/mysqld.service.erb'
@@ -23,21 +26,47 @@ class Chef
             variables(
               config: new_resource,
               etc_dir: etc_dir,
-              base_dir: base_dir
+              base_dir: base_dir,
+              mysqld_bin: mysqld_bin
+              )
+            cookbook 'mysql'
+            notifies :run, "execute[#{new_resource.name} :start systemctl daemon-reload]", :immediately
+            action :create
+          end
+
+          # avoid 'Unit file changed on disk' warning
+          execute "#{new_resource.name} :start systemctl daemon-reload" do
+            command '/usr/bin/systemctl daemon-reload'
+            action :nothing
+          end
+
+          # tmpfiles.d config so the service survives reboot
+          template "#{new_resource.name} :start /usr/lib/tmpfiles.d/#{mysql_name}.conf" do
+            path "/usr/lib/tmpfiles.d/#{mysql_name}.conf"
+            source 'tmpfiles.d.conf.erb'
+            owner 'root'
+            group 'root'
+            mode '0644'
+            variables(
+              run_dir: run_dir,
+              run_user: new_resource.run_user,
+              run_group: new_resource.run_group
               )
             cookbook 'mysql'
             action :create
           end
 
+          # service management resource
           service "#{new_resource.name} :start #{mysql_name}" do
             service_name mysql_name
             provider Chef::Provider::Service::Systemd
             supports restart: true, status: true
-            action [:start]
+            action [:enable, :start]
           end
         end
 
         action :stop do
+          # service management resource
           service "#{new_resource.name} :stop #{mysql_name}" do
             service_name mysql_name
             provider Chef::Provider::Service::Systemd
@@ -48,6 +77,7 @@ class Chef
         end
 
         action :restart do
+          # service management resource
           service "#{new_resource.name} :restart #{mysql_name}" do
             service_name mysql_name
             provider Chef::Provider::Service::Systemd
@@ -57,6 +87,7 @@ class Chef
         end
 
         action :reload do
+          # service management resource
           service "#{new_resource.name} :reload #{mysql_name}" do
             service_name mysql_name
             provider Chef::Provider::Service::Systemd
@@ -65,6 +96,7 @@ class Chef
         end
 
         def create_stop_system_service
+          # service management resource
           service "#{new_resource.name} :create mysql" do
             service_name 'mysqld'
             provider Chef::Provider::Service::Systemd
@@ -74,6 +106,7 @@ class Chef
         end
 
         def delete_stop_service
+          # service management resource
           service "#{new_resource.name} :delete #{mysql_name}" do
             service_name mysql_name
             provider Chef::Provider::Service::Systemd

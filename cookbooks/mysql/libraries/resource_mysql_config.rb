@@ -1,5 +1,4 @@
 require 'chef/resource/lwrp_base'
-require_relative 'helpers'
 
 class Chef
   class Resource
@@ -17,7 +16,5 @@ class Chef
       attribute :variables, kind_of: [Hash], default: nil
       attribute :version, kind_of: String, default: nil
     end
-
-    include MysqlCookbook::Helpers
   end
 end
