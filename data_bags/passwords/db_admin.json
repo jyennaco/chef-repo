@@ -1,0 +1,9 @@
+{
+  "id": "db_admin",
+  "password": {
+    "encrypted_data": "/UfueG7Pv4rD+A9qry8ZenSzluUQoLGtr5GIQ7WA80rVPgSDXefyV1tHQtnV\nMJyx\n",
+    "iv": "2E+mWnqZdwqs1TwEguZahA==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
