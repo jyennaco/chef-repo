@@ -1,7 +1,6 @@
-
 <html>
 <body>
-    <h1>hello from <%= node['fqdn'] %></h1>
+<h1>hello from <%= node['fqdn'] %></h1>
 
     <pre>
       <%= node['hostname'] %>
@@ -9,5 +8,5 @@
       <%= node['memory']['total'] %> RAM
       <%= node['cpu']['total'] %> CPUs
     </pre>
-  </body>
+</body>
 </html>
