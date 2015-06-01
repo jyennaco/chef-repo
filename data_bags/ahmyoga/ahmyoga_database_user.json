@@ -1,0 +1,9 @@
+{
+  "id": "ahmyoga_database_user",
+  "password": {
+    "encrypted_data": "kFfPhMKkzQSexLDH5mF3JxQ5b9KGln6FJZmWTLGoZK+SIZzR5/Z3ct6wEQsE\nbli8\n",
+    "iv": "hhJ039tk4mcrZp9AAWnHBw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

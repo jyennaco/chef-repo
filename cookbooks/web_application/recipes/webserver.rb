@@ -17,17 +17,15 @@ directory node['apache']['docroot_dir'] do
   recursive true
 end
 
-# Write a default home page.
-#file "#{node['apache']['docroot_dir']}/index.php" do
-#  content '<html>This is a placeholder</html>'
-#  mode '0644'
-#  owner node['web_application']['user']
-#  group node['web_application']['group']
-#end
-
 # Load the secrets file and the encrypted data bag item that holds the database password.
 password_secret = Chef::EncryptedDataBagItem.load_secret("#{node['web_application']['passwords']['secret_path']}")
-user_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'db_admin', password_secret)
+
+# Load the encrypted database user password
+user_password_data_bag_item = Chef::EncryptedDataBagItem.load("#{node['web_application']['passwords']['data_bag']}",
+                                                              "#{node['web_application']['database']['app']['username']}",
+                                                              password_secret)
+
+#user_password_data_bag_item = Chef::EncryptedDataBagItem.load("#{node['web_application']['passwords']['data_bag']}", 'ahmyoga_database_user', password_secret)
 
 # Write a default home page.
 template "#{node['apache']['docroot_dir']}/index.php" do
@@ -47,6 +45,13 @@ firewall_rule 'http' do
   action :allow
 end
 
+# Open port 80 to incoming traffic.
+firewall_rule 'http' do
+  port 443
+  protocol :tcp
+  action :allow
+end
+
 # Install the mod_php5 Apache module.
 include_recipe 'apache2::mod_php5'
 
@@ -55,3 +60,9 @@ package 'php5-mysql' do
   action :install
   notifies :restart, 'service[apache2]'
 end
+
+# Install apache2-mpm-prefork.
+#package 'apache2-mpm-prefork' do
+#  action :install
+#  notifies :restart, 'service[apache2]'
+#end

@@ -16,7 +16,11 @@ end
 
 # Load the secrets file and the encrypted data bag item that holds the root password.
 password_secret = Chef::EncryptedDataBagItem.load_secret("#{node['web_application']['passwords']['secret_path']}")
-root_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'sql_server_root_password', password_secret)
+
+# Load the sql_server_root_password
+root_password_data_bag_item = Chef::EncryptedDataBagItem.load("#{node['web_application']['passwords']['data_bag']}",
+                                                              'sql_server_root_password',
+                                                              password_secret)
 
 # Configure the MySQL service.
 mysql_service 'default' do
@@ -35,8 +39,11 @@ mysql_database node['web_application']['database']['dbname'] do
 end
 
 # Add a database user.
+
 # Load the encrypted data bag item that holds the database user's password.
-user_password_data_bag_item = Chef::EncryptedDataBagItem.load('passwords', 'db_admin', password_secret)
+user_password_data_bag_item = Chef::EncryptedDataBagItem.load("#{node['web_application']['passwords']['data_bag']}",
+                                                              "#{node['web_application']['database']['app']['username']}",
+                                                              password_secret)
 
 # Add a database user.
 mysql_database_user node['web_application']['database']['app']['username'] do
