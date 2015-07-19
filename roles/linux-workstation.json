@@ -1,0 +1,20 @@
+{
+  "name" : "linux-workstation",
+  "default_attributes" : {
+    "apache-karaf" : {
+      "karaf_version" : "2.4.0",
+      "install_location" : "/opt"
+      }
+    "java" : {
+      "jdk_version" : "8",
+      "accept_license_agreement" : "true",
+      "install_flavor" : "oracle"
+      }
+    },
+    "run_list" : [
+      "recipe[vim]",
+      "recipe[java]",
+      "recipe[java::set_java_home]"
+    ]
+}
+
