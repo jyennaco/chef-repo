@@ -4,7 +4,7 @@ maintainer_email 'you@example.com'
 license 'all_rights'
 description 'Installs/Configures web_application'
 long_description 'Installs/Configures web_application'
-version '0.3.16'
+version '0.3.23'
 
 depends 'apt', '~> 2.6.1'
 depends 'apache2', '~> 3.0.1'

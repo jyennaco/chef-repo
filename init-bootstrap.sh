@@ -2,28 +2,46 @@
 
 ################## USER VARIABLES ##################
 
-# Port used to connect to the vagrant VM
-PORT=2222
+# IP address or domain name of the server
+# Use localhost for vagrant
+SERVER="52.7.45.7"
+
+# Port used to connect to the server
+# User 2222 for vagrant
+PORT=22
 
 # Name of the Node to create on the Chef Server
-NODE_NAME=vagrant-centos
+NODE_NAME="wordpress-test-2"
+
+# Path to key
+# For vagrant use: ~/.vagrant.d/insecure_private_key
+KEY=~/.aws/ahmy-keypair.pem
+
+# Username to log in case
+# For vagrant use "vagrant" as the user
+USER=ubuntu
 
 ####################################################
 
 # This command boostraps the local Vagrant VM to the
 # Chef server defined by this local chef-repo
 
-echo "This node will be bootstrapped to the Chef server currently\
-      defined in chef-repo/.chef/knife.rb"
-echo "Bootstrapping Vagrant VM ${NODE_NAME} over port ${PORT} ..."
+echo "Bootstrapping server: ${SERVER}, as name ${NODE_NAME}, \
+        over port: ${PORT}, and user ${USER} ..."
 
 knife bootstrap \
-    -i ~/.vagrant.d/insecure_private_key \
-    -x vagrant \
+    -i ${KEY} \
+    -x ${USER} \
     -p ${PORT} \
     -N ${NODE_NAME} \
-    localhost \
+    ${SERVER} \
     --sudo
 
-echo "Bootstrapping complete!"
+if [ $? -ne 0 ] ; then
+    echo "There was a problem bootstrapping ${SERVER} to the chef server :("
+    exit 1
+fi
+
+echo "${SERVER} was bootstrapped to the chef server successfully!"
+exit 0
 
